@@ -4,4 +4,8 @@
 
 html {
   scroll-behavior: smooth;
-}
+/* Prevents horizontal scrolling on mobile devices */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}}

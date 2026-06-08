@@ -202,21 +202,35 @@ function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-24 px-6">
+    <section id="projects" className="py-24 px-4 md:px-6"> {/* Reduced padding on mobile */}
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Featured <span className="gradient-text">Projects</span></h2>
-        <p className="text-center text-slate-500 dark:text-slate-400 mb-16 max-w-xl mx-auto">A selection of applications I've engineered over the last 3 years.</p>
+        <p className="text-center text-slate-500 dark:text-slate-400 mb-16 max-w-xl mx-auto px-4">A selection of applications I've engineered over the last 3 years.</p>
         
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* Changed grid to 1 column on mobile, 2 on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {projectsData.map((project, index) => (
-            <div key={index} className="glass rounded-2xl overflow-hidden group hover:border-indigo-500/30 transition-all duration-500">
-              <div className="relative h-56 overflow-hidden">
-                <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+            // Added overflow-hidden to the main card to prevent scaling issues
+            <div key={index} className="glass rounded-2xl overflow-hidden group hover:border-indigo-500/30 transition-all duration-500 w-full">
+              <div className="relative h-48 md:h-56 w-full overflow-hidden">
+                {/* 
+                  THE FIX: 
+                  w-full = takes up 100% of the container width
+                  h-full = takes up 100% of the container height
+                  object-cover = crops the image nicely without stretching it
+                  max-w-full = STRICTLY prevents it from being wider than the screen 
+                */}
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full max-w-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  loading="lazy"
+                />
                 <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-20 group-hover:opacity-40 transition-opacity`}></div>
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-indigo-400 transition">{project.title}</h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">{project.description}</p>
+              <div className="p-6 md:p-8">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 group-hover:text-indigo-400 transition">{project.title}</h3>
+                <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed text-sm md:text-base">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-8">
                   {project.tech.map((tech, i) => (
                     <span key={i} className="px-3 py-1 text-xs font-semibold bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">
